@@ -1,0 +1,96 @@
+//  report.txt
+//  CS31 Project5
+//  Xuefan Gao
+//  205555927
+
+A brief description of notable obstacles you overcame:
+To be honest, this project is pretty straightforward and I did not encounter any
+notable obstacles other than spelling errors. Thanks to CodeBoard that let me
+find these errors out.
+
+List of test data:
+In my main, I tested :
+    BaseballTeam t1;
+    BaseballTeam t2 = BaseballTeam("t2");
+
+    assert(t1.getName() == "");
+    assert(t1.getHomeWins() == 0);
+    assert(t1.getHomeLosses() == 0);
+    assert(t1.getAwayWins() == 0);
+    assert(t1.getAwayLosses() == 0);
+
+    assert(t2.getName() == "t2");
+    assert(t2.getHomeWins() == 0);
+    assert(t2.getHomeLosses() == 0);
+    assert(t2.getAwayWins() == 0);
+    assert(t2.getAwayLosses() == 0);
+
+
+    t1.setHomeWins(1);
+    t1.setHomeLosses(2);
+    t1.setAwayWins(3);
+    t1.setAwayLosses(4);
+    assert(t1.getHomeWins() == 1);
+    assert(t1.getHomeLosses() == 2);
+    assert(t1.getAwayWins() == 3);
+    assert(t1.getAwayLosses() == 4);
+
+    t2.wonHomeGame();
+    assert(t2.getHomeWins() == 1);
+    t2.wonAwayGame();
+    assert(t2.getAwayWins() == 1);
+    t2.lostHomeGame();
+    assert(t2.getHomeLosses() == 1);
+    t2.lostAwayGame();
+    assert(t2.getAwayLosses() == 1);
+
+
+
+    t1.clear();
+    assert(t1.getHomeWins() == 0);
+    assert(t1.getHomeLosses() == 0);
+    assert(t1.getAwayWins() == 0);
+    assert(t1.getAwayLosses() == 0);
+    assert(t1.hasWinningRecord());
+    assert(t1.hasWinningHomeRecord());
+    assert(t1.hasWinningRoadRecord());
+    assert(t1.overallRecord() == "000-000");
+
+    t2.lostHomeGame();
+    t2.lostAwayGame();
+    assert(!t2.hasWinningRecord());
+    assert(!t2.hasWinningHomeRecord());
+    assert(!t2.hasWinningRoadRecord());
+    assert(t2.overallRecord() == "002-004");
+
+    t2.clear();
+    t2.setAwayWins(100);
+    t2.setHomeLosses(10);
+    assert(t2.overallRecord() == "100-010");
+
+    t2.clear();
+    t2.setHomeWins(10);
+    t2.setAwayWins(1);
+    t2.setHomeLosses(100);
+    t2.setAwayLosses(1);
+    assert(t2.overallRecord() == "011-101");
+    t2.clear();
+
+    League l("l");
+    assert(l.getName() == "l");
+    l.play(t1, t2, 1, 2);
+    assert(t1.getAwayLosses() == 1);
+    assert(t2.getHomeWins() == 1);
+    assert(t1.getHomeLosses() == 0);
+    assert(t2.getAwayWins() == 0);
+
+    l.season(t1, 8, 7, 6, 5);
+    assert(t1.getHomeWins() == 8);
+    assert(t1.getHomeLosses() == 7);
+    assert(t1.getAwayWins() == 6);
+    assert(t1.getAwayLosses() == 5);
+
+    BaseballTeam t3("t3");
+    BaseballTeam t4("t4");
+    BaseballTeam t5("t5");
+    l.season(t2, 5, 6, 7, 8);

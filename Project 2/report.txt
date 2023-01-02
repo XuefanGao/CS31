@@ -1,0 +1,37 @@
+//CS32 Project 2 Report
+//Name: Xuefan Gao
+//UID: 205555927
+
+a. Obstacles I overcame
+At first, I was thinking about to write every single case with multiple nested
+if statements, and then one single else statement that output the error message.
+However I recognized that I need to be ware of which error came first and output
+that specific error message. So I changed my mind and use if else statements.
+This also reduced the redundancy of my program.
+
+Also, I was using getline to read memory input and convert it to string using
+stoi(). However this will cause runtime error when the user enter an alphabetical
+input for memory. I was thinking use isdigit() to check if the input is an int
+at first. Then I realize it is easier to just use cin to read an int, and this
+is what I did in my program.
+
+
+b. List of test data
+At first, I only wrote the code for iPhone 12 and run it, so that I can make
+sure the logic is correct and I can use this later in the cases for all other
+devices.
+I tested with numerical input for model and color and alphabetical input for
+memory, to make sure it will output the error message instead of return a runtime
+error.
+I tested with all invalid inputs to make sure the program will output "invalid
+model" message instead of "invalid color" or "invalid memory". I also did the
+same thing for invalid color.
+I tested integer with spaces for memory input with valid model and color to make
+sure the program will not output the error message.
+I tested negative inputs and empty inputs, to make sure the program will output
+the correct error message. When I test the empty inputs, the program keeps
+asking for input and doesn't output the error message. The forum says the scorer
+will always send two strings and one int as input, so I stopped worrying about
+the empty input issue.
+I looked over the test cases in code board and tested some other valid inputs
+to make sure the price is correct.

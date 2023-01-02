@@ -1,0 +1,176 @@
+# Report.txt
+# CS31 Project3
+# Xuefan Gao
+# UID: 205555927
+
+A. brief description of notable obstacles you overcame.
+When I start, the first idea that came to my mind is to use define an elevator
+class, so that some dynamic variables can be used in multiple functions.
+I don't know what structure I should use to implement the isValidElavatorString
+function. There are so many requirements and I have to figure out the "priority"
+of these requirements so the function will stop checking after something is
+wrong to avoid runtime errors. So I just copy down the requirements for
+elevator strings from the documentation and implement them and test them one by
+one. Then I run some a few tests and found out the right way to combine them
+together in a big foor loop.
+
+B. A description of the design of your program.
+isValidCharacter()
+My program has a helper function called isValidCharacter() which takes a char
+as input and returns true if it is a character that is allowed to appear in the
+elevator string, and return false otherwise.
+
+isValidElavatorString()
+This function first checks if all characters are valid, is the starting
+character 'M'. Then it loops through each char in the string and check the
+requirements one by one. Lastly it checks the case of negative number of people
+on the elevator.
+
+For other functions, I used the similar logic as in isValidElavatorString().
+
+Below is the pseudo code:
+bool isValidElevatorString(string elevatorstring){
+    if there are invalid char in string
+        return false;
+
+    if the first char != M
+        return false;
+
+    for each char in string
+        if current char == M
+            if no floor# followed after M
+                return false
+            if door is open
+                return false
+
+        if current char == O
+            if door already open
+                return false
+            open door
+        if current char == C
+            if door already closed
+                return false
+            close door
+
+        if current char == + or -
+            if door is closed
+                return false
+            if don't specify number of people being loaded
+                return false
+
+    if wrong ending character
+        return false;
+
+    if negative passengers
+        return false
+
+    return true
+
+bool doorsOpen(string elevatorstring)
+    doorStatus = closed
+    if string is invalid
+        return false
+    for each char in string
+        if char == O
+            open door
+        if char == C
+            close doors
+    return doorStatus
+
+int endingPassengers(string elevatorstring)
+    passengerNum = 0
+    if string is invalid
+        return -1
+    for each char in string
+        if char == + or char == -
+            extract number after +/-
+            update passengerNum
+    return passengerNum
+
+int mostPassengers(string elevatorstring)
+    max = 0
+    if string is invalid
+        return -1
+    for each char in string
+        if char == + or char == -
+            extract number after +/-
+            compare the number with max and update max
+    return max
+
+int endingFloor(string elevatorstring)
+    floor = 0
+    if string is invalid
+        return -1
+    for each char in string
+        if char == M
+            extract number after M and update endingFloor
+    return floor
+
+int highestFloor(string elevatorstring)
+    max= 0
+    if string is invalid
+        return -1
+    for each char in string
+        if char == M
+            extract number after M and update max
+    return max
+
+c. A list of the test data, along with the reason for each test.
+    // test the valid examples given in documentation
+    assert(isValidElevatorString("M1") == true);
+    assert(isValidElevatorString("M1O+3") == true);
+    assert(isValidElevatorString("M1O+1+1+1") == true);
+    assert(isValidElevatorString("M1O+1+1+1CM5") == true);
+    assert(isValidElevatorString("M1O+1+1+1CM5O-2+4") == true);
+    assert(isValidElevatorString("M1O+3CM5O+1+1+1+1-1-1") == true);
+
+    // test the valid examples given in documentation
+    assert(isValidElevatorString("M12") == true);
+    assert(isValidElevatorString("M12O+1-0C") == true);
+    assert(isValidElevatorString("M12O+1CM3") == true);
+    assert(isValidElevatorString("M0") == true);
+    assert(isValidElevatorString("M1O+0004C") == true);
+    assert(isValidElevatorString("M3O+3COCOCM2") == true);
+    assert(isValidElevatorString("M12O+1-1+1-1+1") == true);
+    assert(isValidElevatorString("M10M8M9") == true);
+    assert(isValidElevatorString("M2OCOC") == true);
+    assert(isValidElevatorString("M2OCM1") == true);
+    assert(isValidElevatorString("M2OCO") == true);
+    assert(isValidElevatorString("M2O+3CO-1CO") == true);
+
+    // test the invalid examples given in documetation
+    assert(isValidElevatorString("M") == false);
+    assert(isValidElevatorString("M1C") == false);
+    assert(isValidElevatorString("M1OCOO") == false);
+    assert(isValidElevatorString("M1O-12+50") == false);
+    assert(isValidElevatorString("M1O+4-3-1CM2O-1") == false);
+    assert(isValidElevatorString("M1O+-C") == false);
+    assert(isValidElevatorString("M-3") == false);
+    assert(isValidElevatorString("") == false);
+
+    // test the main() given in documentation
+    assert( isValidElevatorString("    ")== false);
+    assert( isValidElevatorString("") == false );
+    assert( doorsOpen( "    " ) == false );
+    assert( endingPassengers( "      " ) == -1 );
+    assert( mostPassengers( "      " ) == -1 );
+    assert( endingFloor( "       " ) == -1 );
+    assert( highestFloor( "       " ) == -1 );
+    assert( isValidElevatorString( "M1O+3-5C" ) == false);
+    assert( isValidElevatorString( "M1O+3-2C" ) );
+    assert( doorsOpen( "M1O+3-2C" ) == false );
+    assert( endingPassengers( "M1O+3-2C" ) == 1 );
+    assert( mostPassengers( "M1O+3-2C" ) == 3 );
+    assert( endingFloor( "M1O+3-2C" ) == 1 );
+    assert( highestFloor( "M1O+3-2C" ) == 1 );
+
+    // test functions with long string and large numbers
+    string s = "M1O+1+1+1CM2OCOCM99O+50CM9999O-3CM2O-50CO+1CO+9";
+    assert(isValidElevatorString(s));
+    assert(endingFloor(s) == 2);
+    assert(highestFloor(s) == 9999);
+    assert(mostPassengers(s) == 53);
+    assert(endingPassengers(s) == 10);
+
+I also tested my program with codeboard and it passed all the test cases.
+My program passed all the test cases above.

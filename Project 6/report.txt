@@ -1,0 +1,17 @@
+// report.txt
+// Xuefan Gao
+// 205555927
+
+1. Notable obstacles:
+I would say the major notable obstacles of this project is to understand the
+rules and the documentation. I download the webpage and annotate the major
+requirements to make sure I don't forget anything.
+Also, I found it confusing about what should evaluateTurn() return when both
+player got busted. Clearly codeboard has a test case on this. So I just did it
+the way that it passes codeboard, since the documentation is lack of clarity
+about this case.
+
+
+2. List of test data:
+I just run the codeboard test and the main function given in documentation.
+I passed all these tests.
